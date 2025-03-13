@@ -150,7 +150,7 @@ const displayVideoDetails = (details) => {
           class="text-center flex items-center justify-center bg-white/30 w-full h-full inset-0 fixed z-50 overflow-hidden backdrop-blur-none"
         >
         
-        <div class="flex  flex-col bg-stone-500 w-[600px] rounded-lg p-4 mx-80">
+        <div class="flex  flex-col bg-stone-500 w-[600px] rounded-lg lg:p-4 lg:mx-80 mx-1">
         <video class="rounded-lg" id="videoPlayer" width="640" height="360" controls poster="${details.thumbnail}">
   <source src="video.mp4" type="video/mp4">
   Your browser does not support the video tag.
