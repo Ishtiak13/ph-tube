@@ -147,7 +147,7 @@ const displayVideoDetails = (details) => {
   const targetedVideo = document.getElementById("video-details");
   document.body.style.overflow = "hidden";
   targetedVideo.innerHTML = `<div id="videoModal"
-          class="text-center flex items-center justify-center bg-white/30 w-full h-full inset-0 fixed z-50 overflow-hidden backdrop-blur-none"
+          class="text-center flex items-center justify-center bg-white/30 w-full h-full inset-0 fixed z-50 overflow-hidden backdrop-blur-sm md:backdrop-blur-none"
         >
         
         <div class="flex  flex-col bg-stone-500 w-[600px] rounded-lg lg:p-4 lg:mx-80 mx-1">
