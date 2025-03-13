@@ -1,3 +1,8 @@
+document.getElementById("search-input").addEventListener("keyup", (e) => {
+  loadVideos(e.target.value);
+  console.log(e.target.value);
+});
+
 const loadCategories = async () => {
   try {
     const response = await fetch(
@@ -11,10 +16,10 @@ const loadCategories = async () => {
   }
 };
 
-const loadVideos = async () => {
+const loadVideos = async (videoInput = "") => {
   try {
     const response = await fetch(
-      "https://openapi.programming-hero.com/api/phero-tube/videos"
+      `https://openapi.programming-hero.com/api/phero-tube/videos?title=${videoInput}`
     );
     const data = await response.json();
     removeActiveMode();
@@ -78,7 +83,7 @@ function displayVideos(videos) {
     videoCard.innerHTML = `
           <div class="card bg-base-100 w-96 cursor-pointer ">
             <figure class="relative h-[200px] rounded-xl">
-              <img
+              <img onclick="loadVideoDetails('${element.video_id}')"
                 src="${element.thumbnail}"
                 alt="${element.title}"
                 class="rounded-xl w-[100%]"
@@ -88,13 +93,15 @@ function displayVideos(videos) {
             <div class="card-body flex flex-row gap-2  items-center py-2 px-0">
               <div class="avatar relative -top-3">
                 <div class="w-8 rounded-full">
-                  <img
+                  <img )"
                     src="${element.authors[0].profile_picture}"
                   />
                 </div>
               </div>
               <div>
-                <h2 class="card-title text-bold">${element.title}</h2>
+                <h2 onclick="loadVideoDetails('${
+                  element.video_id
+                }')" class="card-title text-bold">${element.title}</h2>
                 
                 <p class="text-gray-500">${element.authors[0].profile_name} ${
       isVerified
@@ -122,3 +129,37 @@ loadVideos();
 //     event.target.classList.add("bg-red-500", "text-white");
 //   });
 // });
+// document
+//   .getElementById("videos-container")
+//   .addEventListener("click", (event) => {
+//     if (event.target.tagName === "IMG" || event.target.tagName === "H2") {
+//     }
+//   });
+const loadVideoDetails = (id) => {
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      displayVideoDetails(data.video);
+    });
+};
+const displayVideoDetails = (details) => {
+  console.log(details.description);
+  const targetedVideo = document.getElementById("video-details");
+  document.body.style.overflow = "hidden";
+  targetedVideo.innerHTML = `<div id="videoModal"
+          class="text-center flex items-center justify-center bg-white/30 w-full h-full inset-0 fixed z-50 overflow-hidden backdrop-blur-none"
+        >
+        
+        <div class="flex  flex-col bg-stone-500 w-[600px] rounded-lg p-4 mx-80">
+        <video class="rounded-lg" id="videoPlayer" width="640" height="360" controls poster="${details.thumbnail}">
+  <source src="video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video> <p class="bg-white/30 backdrop-blur-xs p-2 rounded-md m-4 text-white">${details.description}</p></div>
+        </div>`;
+  document.getElementById("videoModal").addEventListener("click", (e) => {
+    if (e.target.id === "videoModal") {
+      targetedVideo.innerHTML = "";
+      document.body.style.overflow = "auto";
+    }
+  });
+};

@@ -56,12 +56,33 @@
             </a>
           </div>
           <div class="navbar-center hidden lg:flex">
-            <ul>
-              <li class="btn">Sort by View</li>
-            </ul>
+            <label class="input">
+              <svg
+                class="h-[1em] opacity-50"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </g>
+              </svg>
+              <input
+                id="search-input"
+                type="search"
+                required
+                placeholder="Search"
+              />
+            </label>
           </div>
           <div class="navbar-end">
-            <a class="btn bg-red-500 text-white">Blog</a>
+            <a class="btn bg-red-500 text-white">Sort By View</a>
           </div>
         </div>
         <hr class="text-gray-200 border-1" />
@@ -84,6 +105,7 @@
         id="videos-container"
         class="w-11/12 mx-auto mt-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center"
       ></section>
+      <section id="video-details"></section>
     </main>
     <script src="./script/index.js"></script>
   </body>
